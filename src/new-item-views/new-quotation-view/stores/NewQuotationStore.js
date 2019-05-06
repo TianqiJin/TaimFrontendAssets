@@ -13,10 +13,10 @@ let NewQuotationStore = Reflux.createStore({
 
     init: function () {
         this.data = {
-            productList : [],
-            customerList : [],
+            productList: [],
+            customerList: [],
             customerClassList: [],
-            quotation : {}
+            quotation: {}
         };
 
         this.productService = new ProductService();
@@ -84,22 +84,27 @@ let NewQuotationStore = Reflux.createStore({
         this.trigger(this.data);
     },
 
-    editQuotationId : function (quotationId) {
+    editQuotationId: function (quotationId) {
         this.data.quotation.quotationSummary.quotationId = quotationId;
         this.trigger(this.data);
     },
 
-    editQuotationDate : function (date) {
-        this.data.quotation.quotationSummary.createDate = date;
+    editQuotationDate: function (date) {
+        this.data.quotation.quotationSummary.quotationDate = date;
         this.trigger(this.data);
     },
 
-    editQuotationDueDate : function (date) {
+    editQuotationDueDate: function (date) {
         this.data.quotation.quotationSummary.dueDate = date;
         this.trigger(this.data);
     },
 
-    editQuotationItemQuantity : function (quantity, itemIndex) {
+    editQuotationNote: function (note) {
+        this.data.quotation.quotationSummary.note = note;
+        this.trigger(this.data);
+    },
+
+    editQuotationItemQuantity: function (quantity, itemIndex) {
         let quotationItem = _.find(this.data.quotation.quotationItems, (item, index) => {
             return index === itemIndex;
         });
@@ -108,11 +113,43 @@ let NewQuotationStore = Reflux.createStore({
         this.trigger(this.data);
     },
 
-    removeQuotationItem : function (itemIndex) {
+    editQuotationItemNote: function (note, itemIndex) {
+        let quotationItem = _.find(this.data.quotation.quotationItems, (item, index) => {
+            return index === itemIndex;
+        });
+
+        quotationItem.note = note;
+        this.trigger(this.data);
+    },
+
+    removeQuotationItem: function (itemIndex) {
         _.remove(this.data.quotation.quotationItems, (item, index) => {
             return itemIndex === index;
         });
         this.trigger(this.data);
+    },
+
+    saveQuotation: function () {
+        let createQuotationInput = {};
+        let quotation = this.data.quotation;
+        createQuotationInput.quotationId = quotation.quotationSummary.quotationId;
+        createQuotationInput.note = quotation.quotationSummary.note;
+        createQuotationInput.status = quotation.quotationSummary.status;
+        createQuotationInput.quotationDate = quotation.quotationSummary.quotationDate;
+        createQuotationInput.dueDate = quotation.quotationSummary.dueDate;
+        createQuotationInput.customerId = quotation.quotationCustomer.id;
+
+        createQuotationInput.createQuotationDetailItems = _.map(quotation.quotationItems, (item) => {
+            return {
+                sku: item.sku,
+                unitPrice: item.unitPrice,
+                quantity: item.quantity,
+                discount: item.discount,
+                note: item.note
+            };
+        });
+
+        console.log(createQuotationInput);
     }
 });
 

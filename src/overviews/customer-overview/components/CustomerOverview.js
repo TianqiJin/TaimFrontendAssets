@@ -8,7 +8,6 @@ import ContentHeaderLeft from "../../../layouts/ContentHeaderLeft";
 import ContentHeaderRight from "../../../layouts/ContentHeaderRight";
 import {NavLink} from "react-router-dom";
 import {ButtonGroup, Card, CardBody, CardTitle, Col, Input, Row, Table} from "reactstrap";
-import ProductOverviewActions from "../../product-overview/actions/ProductOverviewActions";
 import {AgGridReact} from "ag-grid-react";
 
 export default class CustomerOverview extends React.Component{

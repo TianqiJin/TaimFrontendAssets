@@ -1,22 +1,36 @@
 import React from 'react';
 import {Button, Input} from "reactstrap";
 import NewQuotationActions from "../actiions/NewQuotationActions";
+import QuotationItemNoteModal from "./QuotationItemNoteModal";
 
 export default class QuotationItem extends React.Component{
 
     constructor(props) {
         super(props);
-        this.onClickRemoveItem = this.onClickRemoveItem.bind(this);
-        this.onBlurItemQuantity = this.onBlurItemQuantity.bind(this);
+        this.state = {
+            noteModal : false
+        }
     }
 
-    onBlurItemQuantity(event) {
+    onBlurItemQuantity = (event)  => {
         NewQuotationActions.editQuotationItemQuantity(event.target.value, this.props.index);
-    }
+    };
 
-    onClickRemoveItem() {
+    onClickRemoveItem = ()  => {
         NewQuotationActions.removeQuotationItem(this.props.index)
-    }
+    };
+
+    onClickEditItemNote = () => {
+        this.setState({
+            noteModal : true
+        });
+    };
+
+    onToggleItemNodeModal = () => {
+        this.setState((previousState) => ({
+            noteModal: !previousState.noteModal
+        }));
+    };
 
     render() {
         return <tr key={this.props.item.sku}>
@@ -36,7 +50,12 @@ export default class QuotationItem extends React.Component{
             </td>
             <td>{this.props.item.subtotal}</td>
             <td>
-                <Button onClick={this.onClickRemoveItem}><i className="ft-trash-2 ft-2x"/></Button>
+                <Button onClick={this.onClickEditItemNote} className={'mr-1'} ><i className={"ft-edit ft-2x"}/></Button>
+                <QuotationItemNoteModal modal={this.state.noteModal}
+                                        toggle={this.onToggleItemNodeModal}
+                                        item={this.props.item}
+                                        index={this.props.index}/>
+                <Button onClick={this.onClickRemoveItem}><i className={"ft-trash-2 ft-2x"}/></Button>
             </td>
         </tr>
     }

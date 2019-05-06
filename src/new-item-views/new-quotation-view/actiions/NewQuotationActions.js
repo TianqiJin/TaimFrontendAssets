@@ -11,7 +11,10 @@ const NewQuotationActions = Reflux.createActions([
     'editQuotationDate',
     'editQuotationDueDate',
     'editQuotationItemQuantity',
-    'removeQuotationItem'
+    'editQuotationNote',
+    'editQuotationItemNote',
+    'removeQuotationItem',
+    'saveQuotation'
 ]);
 
 export default NewQuotationActions;

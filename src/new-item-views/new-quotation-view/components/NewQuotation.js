@@ -77,6 +77,10 @@ export default class NewQuotation extends React.Component {
         NewQuotationActions.editQuotationId(event.target.value);
     };
 
+    onBlurQuotationNote = (event) => {
+        NewQuotationActions.editQuotationNote(event.target.value);
+    };
+
     onEditQuotationDate = (event) => {
         NewQuotationActions.editQuotationDate(event.target.value);
     };
@@ -87,6 +91,10 @@ export default class NewQuotation extends React.Component {
 
     onDismissAlert = () => {
         this.setState({alertVisible : false});
+    };
+
+    onClickSaveButton = () => {
+        NewQuotationActions.saveQuotation();
     };
 
     createNewQuotation() {
@@ -124,11 +132,11 @@ export default class NewQuotation extends React.Component {
                             <Col md={10}>
                                 <Row>
                                     <Col md={8} className={'text-center text-md-left'}>
-                                        <h2>QUOTATION</h2>
+                                        <h2>QUOTATION - {this.state.quotation.quotationSummary.status}</h2>
                                     </Col>
                                 </Row>
-                                <Row className={'pt-3 pb-3'}>
-                                    <Col md={2}>
+                                <Row className={'pt-3 pb-2'}>
+                                    <Col md={3}>
                                         <Label for={'quotation-number'}>Quotation Number</Label>
                                         <Input key={this.state.quotation.quotationSummary.quotationId}
                                                id={'quotation-number'}
@@ -136,7 +144,7 @@ export default class NewQuotation extends React.Component {
                                                defaultValue={this.state.quotation.quotationSummary.quotationId}
                                                onBlur={this.onBlurQuotationId}/>
                                     </Col>
-                                    <Col md={2}>
+                                    <Col md={3}>
                                         <Label for={'customer-select'}>Customer</Label>
                                         <Input type={'select'} id={'customer-select'} onChange={this.onSelectCustomer}>
                                             <option selected={'true'} disabled={'true'}>
@@ -148,21 +156,31 @@ export default class NewQuotation extends React.Component {
 
                                 </Row>
                                 <Row className={'pt-2 pb-2'}>
-                                    <Col md={2}>
-                                        <Label for={'bill-to'}>Bill To</Label>
-                                        <Input type={"textarea"} id={'bill-to'}/>
-                                    </Col>
-                                    <Col md={2}>
+                                    <Col md={3}>
                                         <Label for={'quotation-date'}>Quotation Date</Label>
                                         <Input type={"date"} id={'quotation-date'} onChange={this.onEditQuotationDate}/>
                                     </Col>
-                                    <Col md={2}>
+                                    <Col md={3}>
                                         <Label for={'due-date'}>Due Date</Label>
                                         <Input type={"date"} id={'due-date'} onChange={this.onEditQuotationDueDate}/>
                                     </Col>
                                 </Row>
+                                <Row className={'pt-2 pb-2'}>
+                                    <Col md={3}>
+                                        <Label for={'bill-to'}>Bill To</Label>
+                                        <Input type={"textarea"} id={'bill-to'}/>
+                                    </Col>
+                                    <Col md={3}>
+                                        <Label for={'bill-from'}>Bill From</Label>
+                                        <Input type={"textarea"} id={'bill-from'}/>
+                                    </Col>
+                                    <Col md={4}>
+                                        <Label for={'note'}>Note</Label>
+                                        <Input type={"textarea"} id={'note'} onBlur={this.onBlurQuotationNote}/>
+                                    </Col>
+                                </Row>
                                 <Row className={'pt-3'}>
-                                    <Col md={2}>
+                                    <Col md={3}>
                                         <Input type="select" onChange={this.onSelectProduct}>
                                             <option selected={'true'} disabled={'true'}>
                                                 Select a product
@@ -176,7 +194,7 @@ export default class NewQuotation extends React.Component {
                                 <Row>
                                     <Col>
                                         <ButtonGroup vertical>
-                                            <Button color={'primary'} style={{marginBottom : '10px'}}>
+                                            <Button color={'primary'} style={{marginBottom : '10px'}} onClick={this.onClickSaveButton}>
                                                 Save and Submit Later
                                             </Button>
                                             <Button color={'secondary'}>Submit Quotation</Button>
@@ -185,8 +203,6 @@ export default class NewQuotation extends React.Component {
                                 </Row>
                             </Col>
                         </Row>
-
-
                         <Row className="pt-2">
                             <div className="table-responsive">
                                 <Col>

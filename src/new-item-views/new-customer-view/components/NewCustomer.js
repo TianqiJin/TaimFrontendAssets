@@ -20,16 +20,6 @@ export default class NewCustomer extends React.Component {
             userTypes: null,
             processing: false
         };
-
-        this.onEditEmail = this.onEditEmail.bind(this);
-        this.onEditFirstName = this.onEditFirstName.bind(this);
-        this.onEditLastName = this.onEditLastName.bind(this);
-        this.onEditPhoneNumber = this.onEditPhoneNumber.bind(this);
-        this.onEditPstNumber = this.onEditPstNumber.bind(this);
-        this.onEditStoreCredit = this.onEditStoreCredit.bind(this);
-        this.onChangeCustomerClass = this.onChangeCustomerClass.bind(this);
-        this.onChangeUserType = this.onChangeUserType.bind(this);
-        this.onSaveNewCustomer = this.onSaveNewCustomer.bind(this);
     }
 
     componentDidMount() {
@@ -52,44 +42,44 @@ export default class NewCustomer extends React.Component {
         });
     }
 
-    onEditFirstName(event) {
+    onEditFirstName = (event) => {
         NewCustomerActions.updateFirstName(event.target.value);
-    }
+    };
 
-    onEditLastName(event) {
+    onEditLastName = (event) => {
         NewCustomerActions.updateLastName(event.target.value);
-    }
+    };
 
-    onEditEmail(event) {
+    onEditEmail = (event) => {
         NewCustomerActions.updateEmail(event.target.value);
         console.log(this.state.customer);
-    }
+    };
 
-    onEditPhoneNumber(event) {
+    onEditPhoneNumber = (event) => {
         NewCustomerActions.updatePhoneNumber(event.target.value);
-    }
+    };
 
-    onEditPstNumber(event) {
+    onEditPstNumber = (event) => {
         NewCustomerActions.updatePstNumber(event.target.value);
-    }
+    };
 
-    onEditStoreCredit(event) {
+    onEditStoreCredit = (event) => {
         NewCustomerActions.updateStoreCredit(event.target.value);
-    }
+    };
 
-    onChangeCustomerClass(event) {
+    onChangeCustomerClass = (event) => {
         NewCustomerActions.updateCustomerClass(event.target.value);
-    }
+    };
 
-    onChangeUserType(event) {
+    onChangeUserType = (event) => {
         NewCustomerActions.updateUserType(event.target.value);
-    }
+    };
 
-    onSaveNewCustomer(event) {
+    onSaveNewCustomer = (event) => {
         this.setState({processing:true});
         event.preventDefault();
         NewCustomerActions.saveNewCustomer();
-    }
+    };
 
     createNewCustomerView() {
 
