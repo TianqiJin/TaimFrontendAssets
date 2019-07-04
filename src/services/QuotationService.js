@@ -3,9 +3,7 @@ import axios from 'axios';
 export default class QuotationService {
 
     initNewQuotation() {
-        return axios.get("http://localhost:8000/quotations?action=init")
-            .then(response => response.data)
-            .catch(error => console.log(error));
+        return axios.get("http://localhost:8000/quotations?action=init");
     }
 
     saveQuotation(createQuotationInput) {
@@ -13,8 +11,18 @@ export default class QuotationService {
             {
                 headers: {
                     'Content-Type': 'application/json'
-                }})
-            .then(response => response.data)
-            .catch(error => console.log(error));
+                }});
     };
+
+    getQuotationOverviewByCustomerId(customerId) {
+        return axios.get("http://localhost:8000/quotations?action=getByCustomerId&customerId=" + customerId);
+    }
+
+    getAllQuotations() {
+        return axios.get("http://localhost:8000/quotations?action=getAll");
+    }
+
+    getQuotationByQuotationId(quotationId) {
+        return axios.get("http://localhost:8000/quotations?action=getQuotationDetailByQuotationId&quotationId=" + quotationId);
+    }
 }

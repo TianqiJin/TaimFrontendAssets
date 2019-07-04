@@ -3,9 +3,7 @@ import axios from 'axios';
 export default class ProductService {
 
     getAllProducts() {
-        return axios.get("http://localhost:8000/products?action=getAll")
-            .then(response => response.data)
-            .catch(error => console.log(error));
+        return axios.get("http://localhost:8000/products?action=getAll");
     }
 
     getProductById(id){
@@ -15,7 +13,6 @@ export default class ProductService {
     }
 
     createNewProduct(product) {
-        console.log(product);
         return axios.post("http://localhost:8000/products?action=new", JSON.stringify(product),  {
             headers: {
                 'Content-Type': 'application/json'

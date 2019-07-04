@@ -4,7 +4,5 @@ export default class VendorService {
 
     getAllVendors() {
         return axios.get("http://localhost:8000/vendors?action=getAll")
-            .then(response => response.data)
-            .catch(error => console.log(error));
     }
 }

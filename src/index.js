@@ -1,17 +1,37 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import { BrowserRouter as Router} from 'react-router-dom';
-import * as serviceWorker from './serviceWorker';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { render } from 'react-dom';
 
-ReactDOM.render(
-    <Router>
-        <App />
-    </Router>, document.getElementById('root')
-);
+import AppProvider from './components/AppProvider/AppProvider';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import Dashboard from './containers/Dashboard';
+import {
+  NotFound,
+  BackendError,
+  Lockscreen,
+  PasswordReset,
+  Signin,
+  Signup,
+  CustomerDetailView,
+  NewCustomerView
+} from './pages';
+
+import registerServiceWorker from './registerServiceWorker';
+
+render(
+  <AppProvider>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/404" component={NotFound} />
+        <Route exact path="/500" component={BackendError} />
+        <Route exact path="/Lockscreen" component={Lockscreen} />
+        <Route exact path="/forgot" component={PasswordReset} />
+        <Route exact path="/signin" component={Signin} />
+        <Route exact path="/signup" component={Signup} />
+        <Route path="/" component={Dashboard} />
+      </Switch>
+    </BrowserRouter>
+  </AppProvider>
+, document.getElementById('root'));
+
+registerServiceWorker();
